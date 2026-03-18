@@ -25,6 +25,10 @@ import runpod
 DEBLUR_UPSCALE    = 2
 DEBLUR_FULL_IMAGE = True
 
+import torch
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+print(f"[setup] Using device: {DEVICE}")
+
 WEIGHTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "weights")
 
 
@@ -94,7 +98,7 @@ def _build_restorer():
                 num_in_ch=3, num_out_ch=3, num_feat=64,
                 num_block=23, num_grow_ch=32, scale=2,
             ),
-            tile=512, tile_pad=16, pre_pad=0, half=False, device="cpu",
+            tile=512, tile_pad=16, pre_pad=0, half=(DEVICE == "cuda"), device=DEVICE,
         )
         print("[setup] Real-ESRGAN loaded")
 
@@ -104,7 +108,7 @@ def _build_restorer():
         arch="clean",
         channel_multiplier=2,
         bg_upsampler=bg_upsampler,
-        device="cpu",
+        device=DEVICE,
     )
     print("[setup] GFPGAN loaded")
     return restorer
