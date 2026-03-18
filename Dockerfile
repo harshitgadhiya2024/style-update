@@ -10,14 +10,14 @@ WORKDIR /app
 
 # ── Python dependencies ────────────────────────────────────────────────────────
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip3 install --no-cache-dir -r requirements.txt
 
 # ── Copy handler ───────────────────────────────────────────────────────────────
 COPY handler.py .
 
 # ── Pre-download model weights at build time (baked into image) ───────────────
 # This removes the cold-start weight-download overhead entirely.
-RUN python -c "\
+RUN python3 -c "\
 import os, urllib.request; \
 os.makedirs('weights', exist_ok=True); \
 urllib.request.urlretrieve( \
@@ -29,4 +29,4 @@ urllib.request.urlretrieve( \
 print('Weights downloaded.')"
 
 # ── Start handler on container launch ─────────────────────────────────────────
-CMD ["python", "-u", "handler.py"]
+CMD ["python3", "-u", "handler.py"]
