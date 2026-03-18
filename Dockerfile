@@ -28,5 +28,8 @@ urllib.request.urlretrieve( \
     'weights/RealESRGAN_x2plus.pth'); \
 print('Weights downloaded.')"
 
+# ── Health check ──────────────────────────────────────────────────────────────
+HEALTHCHECK NONE
+
 # ── Start handler on container launch ─────────────────────────────────────────
 CMD ["python3", "-u", "handler.py"]
