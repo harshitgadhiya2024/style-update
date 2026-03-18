@@ -1,0 +1,11 @@
+runpod
+requests
+gfpgan
+basicsr
+facexlib
+realesrgan
+opencv-python-headless
+Pillow
+torch
+torchvision
+numpy
